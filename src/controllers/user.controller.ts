@@ -26,20 +26,19 @@ export const authUser = async (req: Request | any, res: Response) => {
 export const getBuyerOrders = async (req: Request | any, res: Response) => {
   const { credentials } = req as any;
 
-  if(credentials){
+  if (credentials) {
     await Order.find({ customer: credentials._id })
-    .populate("customer", "-password -userType -createdAt -updatedAt -__v")
-    .populate("shop")
-    .populate("products", "-payment -categoryId -category -shop -user")
-    .populate("transaction.paymentType", "-_id -createdAt -updatedAt -__v")
-    .then((data) => {
-      return res.status(200).json({ success: true, data });
-    })
-    .catch((error) => {
-      console.log(error)
-      return res
-        .status(500)
-        .json({ success: false, data: "Error while fetching orders" });
-    });
+      .populate("customer", "-password -userType -createdAt -updatedAt -__v")
+      .populate("products", "-payment -categoryId -_category -_shop")
+      .populate("transaction.paymentType", "-_id -createdAt -updatedAt -__v")
+      .then((data) => {
+        return res.status(200).json({ success: true, data });
+      })
+      .catch((error) => {
+        console.log(error);
+        return res
+          .status(500)
+          .json({ success: false, data: "Error while fetching orders" });
+      });
   }
 };
