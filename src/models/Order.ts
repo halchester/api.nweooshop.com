@@ -1,5 +1,6 @@
 import mongoose from "mongoose";
 import { PaymentDocument } from "./Payment";
+import { ProductDocument } from "./Product";
 import { UserDocument } from "./User";
 import { ShopDocument } from "./Shop";
 import { nanoid } from "nanoid";
@@ -12,6 +13,7 @@ export type OrderDocument = mongoose.Document & {
   paymentStatus: number; // 0 for no cash, 1 to cash
   productName: string;
   productUniqueId: string; // product unique Id nk product detail ko pym kyi ml
+  products: ProductDocument[];
   itemPrice: number;
   itemCount: number;
   status: string; // 'pending', 'confirmed', 'processing', 'take out', 'shipped'
@@ -31,6 +33,7 @@ const orderSchema = new mongoose.Schema<OrderDocument>(
     productName: { type: String, required: true },
     paymentStatus: { type: Number },
     productUniqueId: { type: String, required: true },
+    products: [{ type: mongoose.Schema.Types.ObjectId, ref: "Product" }],
     itemPrice: { type: Number, required: true },
     itemCount: { type: Number, required: true },
     status: { type: String, default: "pending" },

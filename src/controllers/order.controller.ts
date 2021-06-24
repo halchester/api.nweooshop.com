@@ -13,6 +13,7 @@ export const create = async (req: Request, res: Response) => {
     transaction,
     productUniqueId,
     isDigitalCash,
+    products,
     remarks,
     itemPrice,
     itemCount,
@@ -25,6 +26,7 @@ export const create = async (req: Request, res: Response) => {
       productName,
       productUniqueId,
       isDigitalCash,
+      products,
       paymentStatus: isDigitalCash ? 1 : 0,
       itemPrice,
       itemCount,
@@ -36,6 +38,7 @@ export const create = async (req: Request, res: Response) => {
 
     return res.status(200).json({ success: true, data: newOrder });
   } catch (error) {
+    console.log('err', error)
     return res.status(500).json({ success: false, data: "Error" });
   }
 };
