@@ -73,7 +73,7 @@ export const detail = async (req: Request, res: Response) => {
       "_user",
       "-email -password -userType -_id -createdAt -updatedAt -__v"
     )
-    .populate("_shop", "-_id -_user -createdAt -updatedAt -__v")
+    .populate("_shop", "-_user -createdAt -updatedAt -__v")
     .populate("payment", "-updatedAt -createdAt -__v")
     .then((product) => {
       return res.status(200).json({ success: true, data: product });
