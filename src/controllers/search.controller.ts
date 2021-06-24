@@ -8,9 +8,12 @@ import Product from "../models/Product";
  */
 
 export const search = async (req: Request, res: Response) => {
+  
+  const {q} = req.query as any;
+
   try {
     let searchProducts = await Product.find({
-      $text: { $search: req.body.name },
+      $text: { $search: q },
     });
 
     if (!searchProducts) {
