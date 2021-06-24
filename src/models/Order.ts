@@ -39,6 +39,7 @@ const orderSchema = new mongoose.Schema<OrderDocument>(
     status: { type: String, default: "pending" },
     customer: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
     remarks: { type: String },
+    orderId: { type: String },
   },
   { timestamps: true }
 );
