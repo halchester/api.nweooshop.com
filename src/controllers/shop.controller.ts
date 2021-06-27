@@ -32,7 +32,7 @@ export const index = async (req: Request, res: Response) => {
 export const detail = async (req: Request, res: Response) => {
   let { id } = req.params as any;
 
-  await Shop.findOne({ _id: id })
+  await Shop.findById(id)
     .then((shop) => {
       return res.status(200).json({ success: true, data: shop });
     })
