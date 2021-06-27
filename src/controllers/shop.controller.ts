@@ -24,15 +24,15 @@ export const index = async (req: Request, res: Response) => {
 };
 
 /**
- * @route /api/shops/:uniqueId
+ * @route /api/shops/:id
  * @method GET
  * @description fetch shop detail by uniqueId
  */
 
 export const detail = async (req: Request, res: Response) => {
-  let { uniqueId } = req.params as any;
+  let { id } = req.params as any;
 
-  await Shop.findOne({ uniqueId })
+  await Shop.findById(id)
     .then((shop) => {
       return res.status(200).json({ success: true, data: shop });
     })
