@@ -37,6 +37,7 @@ export const detail = async (req: Request, res: Response) => {
       return res.status(200).json({ success: true, data: shop });
     })
     .catch((error) => {
+      console.log(error);
       return res.status(500).json({ success: false, data: "Error" });
     });
 };
