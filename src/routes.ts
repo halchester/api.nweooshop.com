@@ -23,7 +23,7 @@ module.exports = function (app: any) {
 
   /* shop */
   app.get("/api/shops", verifyToken, shopController.index);
-  app.get("/api/shops/:id", verifyToken, shopController.detail);
+  app.get("/api/shops/:uniqueId", verifyToken, shopController.detail);
   /* shop */
 
   /* Product */
