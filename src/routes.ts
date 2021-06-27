@@ -18,7 +18,7 @@ module.exports = function (app: any) {
   app.post("/api/authenticate", authController.authenticate);
   app.post("/api/buyer/register", authController.buyerRegister);
   app.post("/api/buyer/login", authController.buyerLogin);
-
+  app.get('/api/auth/refresh', verifyToken, authController.refresh);
   app.get("/api/auth/user", verifyToken, userController.authUser);
 
   /* shop */

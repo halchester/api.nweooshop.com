@@ -104,8 +104,7 @@ export const authenticate = async (req: Request, res: Response) => {
  */
 export const buyerRegister = async (req: Request, res: Response) => {
   const {
-    
-    fullName, 
+    fullName,
     email,
     password,
     city,
@@ -218,5 +217,23 @@ export const buyerLogin = async (req: Request, res: Response) => {
     return res
       .status(401)
       .json({ success: false, data: "Email or Password is incorrect" });
+  }
+};
+
+/**
+ * @route /api/auth/refresh
+ * @method POST
+ * @description refresh Function, will return new Authorization token everytime we call
+ */
+
+export const refresh = async (req: Request, res: Response) => {
+  const { credentials } = req as any;
+
+  try {
+    if (credentials) {
+      return res.status(200).json({ Authorization: credentials });
+    }
+  } catch (error) {
+    return res.status(400).json({ Authorization: null });
   }
 };
