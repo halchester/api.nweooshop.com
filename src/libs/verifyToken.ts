@@ -22,7 +22,7 @@ function verifyToken(req: Request | any, res: Response, next: NextFunction) {
 }
 
 function decodedCredentials(decoded: any) {
-  const { _id, fullname, email, address, phoneNumbers } =
+  const { _id, fullname, email, address, phoneNumbers, city, state } =
     decoded.credentials as any;
   return {
     _id,
@@ -30,6 +30,8 @@ function decodedCredentials(decoded: any) {
     email,
     address,
     phoneNumbers,
+    city,
+    state,
   };
 }
 

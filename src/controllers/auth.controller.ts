@@ -231,7 +231,23 @@ export const refresh = async (req: Request, res: Response) => {
 
   try {
     if (credentials) {
-      return res.status(200).json({ Authorization: credentials });
+      var token = jwt.sign(
+        {
+          credentials: {
+            _id: credentials._id,
+            fullname: credentials.fullName,
+            email: credentials.email,
+            city: credentials.city,
+            state: credentials.state,
+            address: credentials?.address,
+            phoneNumbers: credentials?.phoneNumbers,
+          },
+        },
+        process.env.jwtSecret,
+        {}
+      );
+
+      return res.status(200).json({ Authorization: token });
     }
   } catch (error) {
     return res.status(400).json({ Authorization: null });
