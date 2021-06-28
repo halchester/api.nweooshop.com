@@ -7,8 +7,8 @@ import * as categoryController from "./controllers/category.controller";
 import * as paymentController from "./controllers/payment.controller";
 import * as orderController from "./controllers/order.controller";
 import * as stateController from "./controllers/state.controller";
-import * as searchController from './controllers/search.controller';
-import * as deliveryController from './controllers/delivery.controller';
+import * as searchController from "./controllers/search.controller";
+import * as deliveryController from "./controllers/delivery.controller";
 
 import verifyToken from "./libs/verifyToken";
 
@@ -20,7 +20,7 @@ module.exports = function (app: any) {
   app.post("/api/authenticate", authController.authenticate);
   app.post("/api/buyer/register", authController.buyerRegister);
   app.post("/api/buyer/login", authController.buyerLogin);
-  app.get('/api/auth/refresh', verifyToken, authController.refresh);
+  app.get("/api/auth/refresh", verifyToken, authController.refresh);
   app.get("/api/auth/user", verifyToken, userController.authUser);
 
   /* shop */
@@ -70,7 +70,12 @@ module.exports = function (app: any) {
   app.get("/api/states", stateController.index);
   app.get("/api/cities/:stateId", stateController.fetchCities);
 
-  app.post("/api/search", verifyToken, searchController.search)
+  app.post("/api/search", verifyToken, searchController.search);
 
-  app.post('/api/delivery', verifyToken, deliveryController.create);
+  app.post("/api/delivery", verifyToken, deliveryController.create);
+  app.get(
+    "/api/shop/:id/delivery",
+    verifyToken,
+    deliveryController.getShopDeliveryPrice
+  );
 };

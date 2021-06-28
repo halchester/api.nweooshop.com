@@ -22,3 +22,20 @@ export const create = async (req: Request, res: Response) => {
     return res.status(500).json({ success: false, data: "Error" });
   }
 };
+
+/**
+ * @route /api/shop/:id/delivery
+ * @method POST
+ * @description fetch delivery price by shop
+ */
+export const getShopDeliveryPrice = async (req: Request, res: Response) => {
+  let { id } = req.params as any;
+
+  await Delivery.findOne({ shopId: id })
+    .then((data) => {
+      return res.status(200).json({ success: true, data });
+    })
+    .catch((error) => {
+      return res.status(404).json({ success: false, data: "Not Found" });
+    });
+};
