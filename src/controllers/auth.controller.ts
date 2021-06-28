@@ -14,7 +14,7 @@ require("dotenv").config();
  * @description create a new user
  */
 export const register = async (req: Request, res: Response) => {
-  const { shopName, city, state } = req.body;
+  const { shopName, city, state, stateId } = req.body;
   try {
     let newUser = new User(req.body);
     await newUser.save();
@@ -24,6 +24,7 @@ export const register = async (req: Request, res: Response) => {
         shopName,
         city,
         state,
+        stateId,
         slug: slugify(shopName, {
           replacement: "-",
           lower: true,

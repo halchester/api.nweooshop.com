@@ -18,7 +18,7 @@ export const authUser = async (req: Request | any, res: Response) => {
 };
 
 /**
- * @route /api/buyer/:id/orders
+ * @route /api/buyer/orders
  * @method GET
  * @description fetch auth user's order list
  */
