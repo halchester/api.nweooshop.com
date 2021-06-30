@@ -104,16 +104,8 @@ export const authenticate = async (req: Request, res: Response) => {
  * @description create a new buyer account
  */
 export const buyerRegister = async (req: Request, res: Response) => {
-  const {
-    fullName,
-    email,
-    password,
-    city,
-    state,
-    address,
-    secondaryAddress,
-    phoneNumbers,
-  } = req.body;
+  const { fullName, email, password, city, state, address, phoneNumbers } =
+    req.body;
   try {
     let newBuyer = new User({
       fullName,
@@ -129,7 +121,6 @@ export const buyerRegister = async (req: Request, res: Response) => {
         city,
         state,
         address,
-        secondaryAddress: secondaryAddress || "",
         phoneNumbers,
         isEmailVerify: false,
       });
@@ -180,7 +171,10 @@ export const buyerLogin = async (req: Request, res: Response) => {
   if (!user)
     return res
       .status(404)
-      .json({ success: false, data: "User does not exist" });
+      .json({
+        success: false,
+        data: `${email} is not found. If you are a new member, please register first`,
+      });
 
   if (user) {
     bcrypt.compare(

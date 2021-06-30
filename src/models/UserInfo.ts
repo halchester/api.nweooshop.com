@@ -6,7 +6,6 @@ export type UserInfoDocument = mongoose.Document & {
   city: string;
   state: string;
   address: string;
-  secondaryAddress: string;
   phoneNumbers: string[];
   isEmailVerify: boolean;
 };
@@ -27,9 +26,6 @@ const userInfoSchema = new mongoose.Schema<UserInfoDocument>(
       type: String,
       trim: true,
       required: true,
-    },
-    secondaryAddress: {
-      type: String,
     },
     phoneNumbers: [{ type: String, required: true }],
     isEmailVerify: { type: Boolean, default: false },
