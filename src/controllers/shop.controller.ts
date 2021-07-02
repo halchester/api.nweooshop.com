@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import Shop from "../models/Shop";
-
+import Product from "../models/Product";
 /**
  * @route /api/shops
  * @method GET
@@ -33,8 +33,13 @@ export const detail = async (req: Request, res: Response) => {
   let { uniqueId } = req.params as any;
 
   await Shop.findOne({ uniqueId })
-    .then((shop) => {
-      return res.status(200).json({ success: true, data: shop });
+    .then(async (shop) => {
+      let products = await Product.countDocuments({ _shop: shop?._id });
+      let payload = {
+        shop,
+        products,
+      };
+      return res.status(200).json({ success: true, data: payload });
     })
     .catch((error) => {
       return res.status(500).json({ success: false, data: "Error" });
