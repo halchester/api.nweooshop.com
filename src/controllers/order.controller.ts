@@ -8,6 +8,7 @@ import Order from "../models/Order";
 
 export const create = async (req: Request, res: Response) => {
   let { credentials } = req as any;
+  console.log(credentials);
   const {
     shopId,
     transaction,
