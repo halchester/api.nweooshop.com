@@ -11,9 +11,7 @@ export type OrderDocument = mongoose.Document & {
   transcation: object;
   isDigitalCash: boolean;
   paymentStatus: number; // 0 for no cash, 1 to cash
-  productName: string;
-  productUniqueId: string; // product unique Id nk product detail ko pym kyi ml
-  products: ProductDocument[];
+  product: ProductDocument;
   itemPrice: number;
   itemCount: number;
   status: string; // 'pending', 'confirmed', 'processing', 'take out', 'shipped'
@@ -30,10 +28,8 @@ const orderSchema = new mongoose.Schema<OrderDocument>(
       transactionId: { type: String },
       transactionUsername: { type: String },
     },
-    productName: { type: String, required: true },
     paymentStatus: { type: Number },
-    productUniqueId: { type: String, required: true },
-    products: [{ type: mongoose.Schema.Types.ObjectId, ref: "Product" }],
+    product: { type: mongoose.Schema.Types.ObjectId, ref: "Product" },
     itemPrice: { type: Number, required: true },
     itemCount: { type: Number, required: true },
     status: { type: String, default: "pending" },
@@ -47,7 +43,7 @@ const orderSchema = new mongoose.Schema<OrderDocument>(
 orderSchema.pre("save", function save(next) {
   const order = this as OrderDocument;
 
-  order.orderId = `NS_${nanoid(6)}`;
+  order.orderId = `NOS-${nanoid(4)}`;
   next();
 });
 

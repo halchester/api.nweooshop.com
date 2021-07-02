@@ -29,7 +29,7 @@ export const getBuyerOrders = async (req: Request | any, res: Response) => {
   if (credentials) {
     await Order.find({ customer: credentials._id })
       .populate("customer", "-password -userType -createdAt -updatedAt -__v")
-      .populate("products", "-payment -categoryId -_category -_shop")
+      .populate("product", "-payment -categoryId -_category -_shop")
       .populate("transaction.paymentType", "-_id -createdAt -updatedAt -__v")
       .then((data) => {
         return res.status(200).json({ success: true, data });

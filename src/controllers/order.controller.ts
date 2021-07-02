@@ -11,22 +11,18 @@ export const create = async (req: Request, res: Response) => {
   const {
     shopId,
     transaction,
-    productUniqueId,
     isDigitalCash,
-    products,
+    product,
     remarks,
     itemPrice,
     itemCount,
-    productName,
   } = req.body as any;
   try {
     let newOrder = new Order({
       shopId,
       transaction,
-      productName,
-      productUniqueId,
       isDigitalCash,
-      products,
+      product,
       paymentStatus: isDigitalCash ? 1 : 0,
       itemPrice,
       itemCount,
@@ -38,7 +34,7 @@ export const create = async (req: Request, res: Response) => {
 
     return res.status(200).json({ success: true, data: newOrder });
   } catch (error) {
-    console.log('err', error)
+    console.log("err", error);
     return res.status(500).json({ success: false, data: "Error" });
   }
 };
