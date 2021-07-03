@@ -1,5 +1,4 @@
 import mongoose from "mongoose";
-import { PaymentDocument } from "./Payment";
 import { ProductDocument } from "./Product";
 import { UserDocument } from "./User";
 import { ShopDocument } from "./Shop";
@@ -8,8 +7,6 @@ import { nanoid } from "nanoid";
 export type OrderDocument = mongoose.Document & {
   orderId: string;
   shopId: ShopDocument;
-  transcation: object;
-  isDigitalCash: boolean;
   paymentStatus: number; // 0 for no cash, 1 to cash
   product: ProductDocument;
   itemPrice: number;
@@ -17,17 +14,12 @@ export type OrderDocument = mongoose.Document & {
   status: string; // 'pending', 'confirmed', 'processing', 'take out', 'shipped'
   customer: UserDocument;
   remarks: string;
+  deliveryFee: number;
 };
 
 const orderSchema = new mongoose.Schema<OrderDocument>(
   {
     shopId: { type: mongoose.Schema.Types.ObjectId, ref: "Shop" },
-    isDigitalCash: { type: Boolean, required: true },
-    transaction: {
-      paymentType: { type: mongoose.Schema.Types.ObjectId, ref: "Payment" },
-      transactionId: { type: String },
-      transactionUsername: { type: String },
-    },
     paymentStatus: { type: Number },
     product: { type: mongoose.Schema.Types.ObjectId, ref: "Product" },
     itemPrice: { type: Number, required: true },
@@ -36,6 +28,7 @@ const orderSchema = new mongoose.Schema<OrderDocument>(
     customer: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
     remarks: { type: String },
     orderId: { type: String },
+    deliveryFee: { type: Number, required: true }, // if free set 0
   },
   { timestamps: true }
 );

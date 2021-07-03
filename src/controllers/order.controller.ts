@@ -9,26 +9,18 @@ import Order from "../models/Order";
 export const create = async (req: Request, res: Response) => {
   let { credentials } = req as any;
   console.log(credentials);
-  const {
-    shopId,
-    transaction,
-    isDigitalCash,
-    product,
-    remarks,
-    itemPrice,
-    itemCount,
-  } = req.body as any;
+  const { shopId, product, deliveryFee, remarks, itemPrice, itemCount } =
+    req.body as any;
   try {
     let newOrder = new Order({
       shopId,
-      transaction,
-      isDigitalCash,
       product,
-      paymentStatus: isDigitalCash ? 1 : 0,
+      paymentStatus: 0,
       itemPrice,
       itemCount,
       customer: credentials._id,
       remarks,
+      deliveryFee,
     });
 
     await newOrder.save();
