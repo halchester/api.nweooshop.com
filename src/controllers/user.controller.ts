@@ -9,6 +9,7 @@ import Order from "../models/Order";
  */
 
 export const authUser = async (req: Request | any, res: Response) => {
+  console.log(req.credentials)
   try {
     if (req.credentials)
       return res.status(200).json({ success: true, data: req.credentials });
