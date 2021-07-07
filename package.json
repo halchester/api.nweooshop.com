@@ -7,7 +7,8 @@
     "build-ts": "tsc",
     "serve-debug": "nodemon --inspect dist/server.js",
     "serve": "node dist/server.js",
-    "start": "npm run serve"
+    "dev": "nodemon -x ts-node src/server.ts",
+    "start": "ts-node src/server.ts"
   },
   "dependencies": {
     "bcrypt": "^5.0.1",
@@ -24,6 +25,7 @@
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^5.12.13",
     "nanoid": "^3.1.23",
+    "nodemon": "^2.0.9",
     "path": "^0.12.7",
     "slugify": "^1.5.3",
     "winston": "^3.3.3"
